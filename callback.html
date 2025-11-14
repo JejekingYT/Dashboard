@@ -15,7 +15,15 @@
       document.body.innerHTML = "<h1>Error: Missing ?code</h1>";
     } else {
       // Send code to your Node.js server
-      fetch(`http://localhost:3000/oauth/callback?code=${code}`)
+      fetch(`https://discord-oauth-server-xnw3.onrender.com/auth/callback?code=${code}`)
+  .then(res => res.json())
+  .then(user => {
+    // save user data to localStorage for your dashboard
+    localStorage.setItem("discord_user", JSON.stringify(user));
+    window.location.href = "/"; // redirect back to your dashboard
+  })
+  .catch(err => console.error(err));
+
         .then(res => res.json())
         .then(user => {
           // Save user info in localStorage so the dashboard can read it
