@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Discord OAuth Callback</title>
+  <meta charset="UTF-8" />
+  <title>Connecting Discord…</title>
 </head>
 <body>
-  <h1>Discord login successful!</h1>
-  <p>You may now close this tab.</p>
+  <h1>Connecting your Discord Account…</h1>
+
   <script>
-    // Optional: read the 'code' parameter from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    console.log("Discord OAuth code:", code);
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("code");
+
+    if (!code) {
+      document.body.innerHTML = "<h1>Error: Missing ?code</h1>";
+    } else {
+      // Send code to your Node.js server
+      fetch(`http://localhost:3000/oauth/callback?code=${code}`)
+        .then(res => res.json())
+        .then(user => {
+          // Save user info in localStorage so the dashboard can read it
+          localStorage.setItem("discord_user", JSON.stringify(user));
+          window.location.href = "https://jejekingyt.github.io/Dashboard/";
+        });
+    }
   </script>
 </body>
 </html>
