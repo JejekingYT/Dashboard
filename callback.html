@@ -1,1 +1,17 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Discord OAuth Callback</title>
+</head>
+<body>
+  <h1>Discord login successful!</h1>
+  <p>You may now close this tab.</p>
+  <script>
+    // Optional: read the 'code' parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    console.log("Discord OAuth code:", code);
+  </script>
+</body>
+</html>
