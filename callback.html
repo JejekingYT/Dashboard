@@ -6,24 +6,24 @@
 </head>
 <body>
   <h1>Processing Discord login…</h1>
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+ <script>
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('code');
 
-    if (code) {
-      fetch(`http://localhost:3000/auth/callback?code=${code}`)
-        .then(res => res.json())
-        .then(user => {
-          localStorage.setItem("discord_user", JSON.stringify(user));
-          window.location.href = "http://localhost:5001/"; // Retype dashboard URL
-        })
-        .catch(err => {
-          console.error(err);
-          document.body.innerHTML = "<p>Failed to connect to Discord.</p>";
-        });
-    } else {
-      document.body.innerHTML = "<p>No code found in URL.</p>";
-    }
-  </script>
+if (code) {
+  fetch(`http://localhost:3000/auth/callback?code=${code}`)
+    .then(res => res.json())
+    .then(user => {
+      localStorage.setItem("discord_user", JSON.stringify(user));
+      window.location.href = "http://localhost:5002/"; // Your local Retype dashboard
+    })
+    .catch(err => {
+      console.error(err);
+      document.body.innerHTML = "<p>Failed to connect to Discord.</p>";
+    });
+} else {
+  document.body.innerHTML = "<p>No code found in URL.</p>";
+}
+</script>
 </body>
 </html>
